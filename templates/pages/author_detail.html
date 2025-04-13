@@ -1,0 +1,12 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h1 class="text-center display-5">{{ author.full_name }}</h1>
+    <br>
+{% for book in books %}
+    <p><a href="{% url 'book_detail' book.slug %}">{{ book.title }}</a></p>
+{% endfor %}
+
+{%  endblock content %}

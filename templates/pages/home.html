@@ -1,0 +1,24 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Home page{% endblock title %}
+
+{% block content %}
+    <br><br>
+    {%  if not user.is_authenticated %}
+    <p>You must be logged in to save reading progress.</p><br><br>
+    {%  endif %}
+    <h1 class="display-6 text-center">The Gutenberg Personal Library</h1>
+    <p>Welcome to the Gutenberg Personal Library. This simple app allows you to collect your favorite books from Project Gutenberg, organize them into collections and, of course, read them. Whenever you navigate away from a book, your last position is saved so you can return later and pick up where you left off. For now, you can get to your books by going to the Books list, Authors list, or Collections list. Later, you'll also be able to search by title and author. Happy reading!</p>
+    <div class="row">
+        <div class="col">
+            <h1 class="display-6"><a href="{% url 'book_list' %}">Books</a></h1>
+        </div>
+        <div class="col">
+            <h1 class="display-6"><a href="{% url 'author_list' %}">Authors</a></h1>
+        </div>
+        <div class="col">
+            <h1 class="display-6"><a href="{%  url 'collection_list' %}">Collections</a></h1>
+        </div>
+    </div>
+{% endblock content %}

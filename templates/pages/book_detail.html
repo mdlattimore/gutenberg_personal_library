@@ -1,0 +1,49 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}{{ book.title }}: {{ scroll_position }} {%  endblock title %}
+
+{% block content %}
+
+<h1 class="text-center display-5">{{ book.title }}</h1>
+<div
+  id="book-div"
+  hx-get="{% url 'book_content_partial' book.pk %}"
+  hx-trigger="load"
+  hx-swap="innerHTML"
+  class="book_div"
+>
+  <div class="text-center text-muted">Loading book content...</div>
+</div>
+    <script>
+  let timeout;
+  window.addEventListener("scroll", () => {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      const scrollY = window.scrollY;
+      fetch("{% url 'save_scroll_position' book.pk %}", {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": "{{ csrf_token }}",
+          "HX-Request": "true", // lets Django know it's an htmx request
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ scroll_position: scrollY })
+      });
+    }, 1000); // Wait a second after scrolling
+  });
+</script>
+    <script>
+  const savedPosition = {{ scroll_position|default:"0" }};
+  document.body.addEventListener("htmx:afterSwap", (e) => {
+  if (e.target.id === "book-div") {
+    setTimeout(() => {
+      window.scrollTo({
+        top: savedPosition,
+        behavior: "smooth"
+      });
+    }, 100);
+  }
+});
+</script>
+{%  endblock content %}

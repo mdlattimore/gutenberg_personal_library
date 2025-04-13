@@ -1,0 +1,146 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+body {
+  margin-bottom: 60px; /* Margin bottom by footer height */
+}
+
+.container {
+  max-width: 960px;
+}
+
+.pricing-header {
+  max-width: 700px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px; /* Set the fixed height of the footer here */
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+
+iframe {
+  width: 1000px;
+  height: 500px;
+  display: block;
+  margin: auto;
+
+}
+
+.book_div #pg-header div,
+.book_div #pg-footer div {
+    all: initial;
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 2em;
+}
+
+.book_div #pg-footer div.agate {
+    font-size: 90%;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.book_div #pg-footer li {
+    all: initial;
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-indent: -0.6em;
+}
+
+.book_div #pg-footer div.secthead {
+    font-size: 110%;
+    font-weight: bold;
+}
+
+.book_div #pg-footer #project-gutenberg-license {
+    font-size: 110%;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.book_div #pg-header-heading {
+    all: inherit;
+    text-align: center;
+    font-size: 120%;
+    font-weight: bold;
+}
+
+.book_div #pg-footer-heading {
+    all: inherit;
+    text-align: center;
+    font-size: 120%;
+    font-weight: normal;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.book_div #pg-header #pg-machine-header p {
+    text-indent: -4em;
+    margin-left: 4em;
+    margin-top: 1em;
+    margin-bottom: 0;
+    font-size: medium;
+}
+
+.book_div #pg-header #pg-header-authlist {
+    all: initial;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.book_div #pg-header #pg-machine-header strong {
+    font-weight: normal;
+}
+
+.book_div #pg-header #pg-start-separator,
+.book_div #pg-footer #pg-end-separator {
+    margin-bottom: 3em;
+    margin-left: 0;
+    margin-right: auto;
+    margin-top: 2em;
+    text-align: center;
+}
+
+/* XHTML Centering */
+.book_div .xhtml_center {
+    text-align: center;
+    display: block;
+}
+
+.book_div .xhtml_center table {
+    display: table;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.book_div .illowe59_25 {
+    width: 45em;
+}
+
+.book_div .figcenter {
+    margin: auto;
+    text-align: center;
+    page-break-inside: avoid;
+    max-width: 100%;
+}
+
+
