@@ -1,0 +1,65 @@
+{% extends "_base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Add Book{% endblock title %}
+{% block content %}
+{% if add_update == "Save" %}
+  <h1 class="display-5">Add Book</h1>
+{% else %}
+  <h1 class="display-5">Update Book</h1>
+{% endif %}
+<p>Required fields marked with an *</p>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {% crispy form %}
+
+  <!-- Modal Container -->
+  <div id="author-modal"></div>
+  <br />
+
+  <script>
+    document.addEventListener("htmx:afterRequest", function (event) {
+      if (event.detail.elt.id === "author-form") {
+        let response = event.detail.xhr.responseText;
+        let data = JSON.parse(response);
+
+        if (data.id && data.name) {
+          let companySelect = document.getElementById("id_author"); // Django's default ID naming
+          let newOption = document.createElement("option");
+          newOption.value = data.id;
+          newOption.textContent = data.name;
+
+          // Insert the new company alphabetically
+          let options = Array.from(companySelect.options);
+          let inserted = false;
+
+          for (let i = 0; i < options.length; i++) {
+            if (options[i].textContent.localeCompare(data.name) > 0) {
+              companySelect.insertBefore(newOption, options[i]);
+              inserted = true;
+              break;
+            }
+          }
+
+          if (!inserted) {
+            companySelect.appendChild(newOption); // Append if it's last alphabetically
+          }
+
+          // Automatically select the new company
+          newOption.selected = true;
+          companySelect.value = data.id;
+          companySelect.dispatchEvent(new Event("change"));
+
+          // Close the modal
+          let modal = document.getElementById("author-modal");
+          modal.classList.remove("show");
+          modal.style.display = "none";
+          document.body.classList.remove("modal-open");
+        }
+      }
+    });
+  </script>
+
+
+
+  {% endblock content %}
+</form>

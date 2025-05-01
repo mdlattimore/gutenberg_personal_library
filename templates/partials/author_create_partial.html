@@ -1,0 +1,50 @@
+{% load crispy_forms_tags %}
+
+<div class="modal fade show d-block" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Author</h5>
+                <button type="button" class="close" onclick="closeModal()">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="author-form" method="post"
+                      hx-post="{% url 'author_create' %}"
+                      hx-target="#author-form-container"
+                      hx-swap="outerHTML"
+                      hx-on::after-request="handleAuthorResponse(event)">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+                <div id="author-form-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function handleAuthorResponse(event) {
+        try {
+            let responseData = JSON.parse(event.detail.xhr.responseText);
+            let dropdown = document.getElementById("id_author");
+
+            // Check if the company already exists in dropdown
+            let existingOption = dropdown.querySelector(`option[value="${responseData.id}"]`);
+            if (!existingOption) {
+                let newOption = new Option(responseData.name, responseData.id, true, true);
+                dropdown.add(newOption);
+            }
+
+            closeModal();  // Close the modal after successful submission
+        } catch (error) {
+            console.error("Error processing response:", error);
+        }
+    }
+
+    function closeModal() {
+        document.getElementById("author-modal").innerHTML = "";
+    }
+</script>
